@@ -15,7 +15,10 @@ export class GifsService {
   get record() {
     return [...this._record];
   }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // TODO init of localStorage
+    this._record = JSON.parse(localStorage.getItem('records')!) || [];
+  }
 
   // methods
   addRecord(query: string): void {
@@ -25,8 +28,12 @@ export class GifsService {
     if (!this._record.includes(query)) {
       //  addRecord
       this._record.unshift(query);
+
       // Show top 10
       this._record = this._record.splice(0, 9);
+
+      // TODO save in localStorage
+      localStorage.setItem('records', JSON.stringify(this._record));
     }
 
     // this.searchRequest(query);
