@@ -18,6 +18,7 @@ export class GifsService {
   constructor(private http: HttpClient) {
     // TODO init of localStorage
     this._record = JSON.parse(localStorage.getItem('records')!) || [];
+    this.results = JSON.parse(localStorage.getItem('results')!) || [];
   }
 
   // methods
@@ -43,6 +44,7 @@ export class GifsService {
       )
       .subscribe((resp) => {
         this.results = resp.data;
+        localStorage.setItem('results', JSON.stringify(resp.data));
       });
   }
 
